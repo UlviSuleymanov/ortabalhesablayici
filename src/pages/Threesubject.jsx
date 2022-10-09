@@ -83,16 +83,31 @@ const Threesubject = () => {
       <div>
         <input
           type="text"
+          pattern="^[0-9\b]+$"
+          maxLength={3}
           onChange={(event) => {
-            setInput({ ...input, bal2: event.target.value });
+            if (+event.target.value && event.target.value <= maxBal) {
+              setInput({ ...input, bal2: event.target.value });
+              setMsgError('');
+            } else {
+              setMsgError('51 ve 100 arasi reqem giriniz.');
+            }
           }}
           placeholder="Bal"
           value={input.bal2}
         />
         <input
           type="text"
+          maxLength={2}
           onChange={(event) => {
-            setInput({ ...input, kredit2: event.target.value });
+            if (+event.target.value && event.target.value <= maxKredit) {
+              setInput({ ...input, kredit2: event.target.value });
+              setMsgError('');
+            } else if (+event.target.value === 0) {
+              setInput({ ...input, kredit2: 0 });
+            } else {
+              setMsgError('1 - 10 arasi reqem girniniz.');
+            }
           }}
           placeholder="Kredit"
           value={input.kredit2}
@@ -101,6 +116,8 @@ const Threesubject = () => {
       <div>
         <input
           type="text"
+          pattern="^[0-9\b]+$"
+          maxLength={3}
           onChange={(event) => {
             if (+event.target.value && event.target.value <= maxBal) {
               setInput({ ...input, bal3: event.target.value });
@@ -114,6 +131,7 @@ const Threesubject = () => {
         />
         <input
           type="text"
+          maxLength={2}
           onChange={(event) => {
             if (+event.target.value && event.target.value <= maxKredit) {
               setInput({ ...input, kredit3: event.target.value });
